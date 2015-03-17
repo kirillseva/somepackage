@@ -1,0 +1,10 @@
+image: kirillseva/somepackage_dockerfile
+script:
+# this is only running testthat tests. Blazing fast!
+- R -e 'devtools::install();a<-devtools::test();st<-any(a$failed | a$error);if(identical(st,FALSE)){library(covr);coveralls(repo_token=Sys.getenv("COVERALLS_SECRET"))};q(save="no",status=st)'
+# this is the usual R CMD check test. Useful if you plan on releasing to CRAN
+# - R_BUILD_ARGS=${R_BUILD_ARGS-"--no-build-vignettes --no-manual"}
+# - R_CHECK_ARGS=${R_CHECK_ARGS-"--no-build-vignettes --no-manual --as-cran"}
+# - R CMD build ${R_BUILD_ARGS} .
+# - FILE=$(ls -1t *.tar.gz | head -n 1)
+# - R CMD check "${FILE}" ${R_CHECK_ARGS}
